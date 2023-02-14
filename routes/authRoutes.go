@@ -6,7 +6,7 @@ import (
 )
 
 func AuthRoutes(routerGroup *gin.RouterGroup) {
-	routerGroup.GET("/login", controllers.Login)
+	routerGroup.POST("/login", controllers.Login)
 	routerGroup.GET("/register", controllers.Register)
 	routerGroup.GET("/logout", controllers.Logout)
 }

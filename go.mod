@@ -2,7 +2,10 @@ module github.com/nithinrdy/connect-gin
 
 go 1.19
 
-require github.com/gin-gonic/gin v1.8.2
+require (
+	github.com/gin-gonic/gin v1.8.2
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect

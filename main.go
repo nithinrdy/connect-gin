@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nithinrdy/connect-gin/middleware"
 	"github.com/nithinrdy/connect-gin/routes"
 
 	"github.com/gin-gonic/gin"
@@ -21,9 +22,12 @@ func main() {
 
 	routes.AuthRoutes(authGroup)
 
+	r.Use(middleware.JwtAuth())
+
 	r.GET("/", func(c *gin.Context) {
+		userEmail, _ := c.Get("userEmail")
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello World!",
+			"message": fmt.Sprintf("Hello %v", userEmail),
 		})
 	})
 
