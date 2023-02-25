@@ -17,7 +17,7 @@ func GenerateAccessToken(dataToSign string) (string, error) {
 	accessTokenClaims := MyCustomClaims{
 		DataToSign: dataToSign,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 1).Unix(),
 			IssuedAt:  time.Now().Unix(),
 		},
 	}

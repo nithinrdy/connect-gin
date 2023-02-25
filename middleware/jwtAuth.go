@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -24,9 +25,7 @@ func JwtAuth() gin.HandlerFunc {
 		}
 		tokenString := authString[7:]
 
-		tk, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return utilities.SecretKey, nil
-		})
+		tk, err := utilities.ValidateJWT(tokenString)
 		if err != nil {
 			c.JSON(401, gin.H{
 				"message": err.Error(),
@@ -42,7 +41,7 @@ func JwtAuth() gin.HandlerFunc {
 			return
 		}
 
-		userEmail, validAssertion := tk.Claims.(jwt.MapClaims)["dataToSign"]
+		username, validAssertion := tk.Claims.(jwt.MapClaims)["dataToSign"]
 		if !validAssertion {
 			c.JSON(401, gin.H{
 				"message": "Broken token (hehe)",
@@ -51,7 +50,9 @@ func JwtAuth() gin.HandlerFunc {
 			return
 		}
 
-		c.Set("userEmail", userEmail.(string))
+		fmt.Println("Username: ", username)
+
+		c.Set("username", username.(string))
 		c.Next()
 	}
 }

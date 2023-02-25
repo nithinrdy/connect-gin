@@ -21,14 +21,15 @@ func main() {
 	}
 	r := gin.Default()
 
-	routes.AuthRoutes(r.Group("/api/auth"))
+	authGroup := r.Group("/api/auth")
+	routes.AuthRoutes(authGroup)
 
 	r.Use(middleware.JwtAuth())
 
 	r.GET("/", func(c *gin.Context) {
-		userEmail, _ := c.Get("userEmail")
+		username, _ := c.Get("username")
 		c.JSON(http.StatusOK, gin.H{
-			"message": fmt.Sprintf("Hello %v", userEmail),
+			"message": fmt.Sprintf("Hello %v", username),
 		})
 	})
 
