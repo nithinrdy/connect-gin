@@ -32,7 +32,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	rows, err2 := config.DatabaseInstance.Query("SELECT username, password_hash FROM users WHERE email = $1", loginCreds.Email)
+	rows, err2 := config.DatabaseInstance.Query("SELECT username, password_hash, nickname FROM users WHERE email = $1", loginCreds.Email)
 	if err2 != nil {
 		c.JSON(500, "Error contacting database")
 		return
@@ -40,11 +40,12 @@ func Login(c *gin.Context) {
 
 	var username string
 	var passwordHash string
+	var nickname string
 
 	for rows.Next() {
-		err3 := rows.Scan(&username, &passwordHash)
+		err3 := rows.Scan(&username, &passwordHash, &nickname)
 		if err3 != nil {
-			c.JSON(500, "Error processing password")
+			c.JSON(500, "Error processing query")
 			return
 		}
 	}
@@ -75,6 +76,7 @@ func Login(c *gin.Context) {
 		"message":      "Logged in",
 		"username":     username,
 		"email":        loginCreds.Email,
+		"nickname":     nickname,
 		"access_token": accessTokenString,
 	})
 }

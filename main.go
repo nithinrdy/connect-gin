@@ -21,8 +21,8 @@ func main() {
 	}
 	r := gin.Default()
 
-	authGroup := r.Group("/api/auth")
-	routes.AuthRoutes(authGroup)
+	routes.AuthRoutes(r.Group("/api/auth"))
+	routes.RefreshRoute(r.Group("/api/refresh"))
 
 	r.Use(middleware.JwtAuth())
 

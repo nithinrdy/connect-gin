@@ -16,9 +16,7 @@ func JwtAuth() gin.HandlerFunc {
 		}
 		authString := c.Request.Header.Get("Authorization")
 		if len(authString) < 8 || authString[:7] != "Bearer " {
-			c.JSON(401, gin.H{
-				"message": "unauthorized",
-			})
+			c.JSON(401, "unauthorized")
 			c.Abort()
 			return
 		}
@@ -26,25 +24,19 @@ func JwtAuth() gin.HandlerFunc {
 
 		tk, err := utilities.ValidateJWT(tokenString)
 		if err != nil {
-			c.JSON(401, gin.H{
-				"message": err.Error(),
-			})
+			c.JSON(401, err.Error())
 			c.Abort()
 			return
 		}
 		if !tk.Valid {
-			c.JSON(401, gin.H{
-				"message": tk.Claims.Valid().Error(),
-			})
+			c.JSON(401, tk.Claims.Valid().Error())
 			c.Abort()
 			return
 		}
 
 		username, validAssertion := tk.Claims.(jwt.MapClaims)["dataToSign"]
 		if !validAssertion {
-			c.JSON(401, gin.H{
-				"message": "Broken token (hehe)",
-			})
+			c.JSON(401, "Broken token (hehe)")
 			c.Abort()
 			return
 		}
