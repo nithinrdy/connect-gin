@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -49,8 +48,6 @@ func JwtAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
-		fmt.Println("Username: ", username)
 
 		c.Set("username", username.(string))
 		c.Next()

@@ -137,6 +137,7 @@ func Register(c *gin.Context) {
 	c.SetCookie("refresh_token", refreshTokenString, 3600*24*30, "/", "localhost", false, true)
 
 	c.JSON(200, gin.H{
+		"message":        "Registered",
 		"email_received": registerData.Email,
 		"username":       registerData.Username,
 		"nickname":       registerData.Nickname,
