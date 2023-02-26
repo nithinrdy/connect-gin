@@ -26,6 +26,8 @@ func main() {
 
 	r.Use(middleware.JwtAuth())
 
+	routes.EditProfileRoute(r.Group("/api/editProfile"))
+
 	r.GET("/", func(c *gin.Context) {
 		username, _ := c.Get("username")
 		c.JSON(http.StatusOK, gin.H{

@@ -56,11 +56,13 @@ func RefreshToken(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"message":      "Token refreshed",
-		"username":     correspondingUsername,
-		"email":        email,
-		"nickname":     nickname,
-		"access_token": accessTokenString,
+		"message": "Token refreshed",
+		"user": gin.H{
+			"username":    correspondingUsername,
+			"email":       email,
+			"nickname":    nickname,
+			"accessToken": accessTokenString,
+		},
 	})
 
 }

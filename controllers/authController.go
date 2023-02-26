@@ -73,11 +73,13 @@ func Login(c *gin.Context) {
 	c.SetCookie("refresh_token", refreshTokenString, 3600*24*30, "/", "localhost", false, true)
 
 	c.JSON(200, gin.H{
-		"message":      "Logged in",
-		"username":     username,
-		"email":        loginCreds.Email,
-		"nickname":     nickname,
-		"access_token": accessTokenString,
+		"message": "Logged in",
+		"user": gin.H{
+			"username":    username,
+			"email":       loginCreds.Email,
+			"nickname":    nickname,
+			"accessToken": accessTokenString,
+		},
 	})
 }
 
@@ -138,12 +140,14 @@ func Register(c *gin.Context) {
 
 	c.SetCookie("refresh_token", refreshTokenString, 3600*24*30, "/", "localhost", false, true)
 
-	c.JSON(200, gin.H{
-		"message":        "Registered",
-		"email_received": registerData.Email,
-		"username":       registerData.Username,
-		"nickname":       registerData.Nickname,
-		"access_token":   accessTokenString,
+	c.JSON(201, gin.H{
+		"message": "Registered",
+		"user": gin.H{
+			"username":    registerData.Username,
+			"email":       registerData.Email,
+			"nickname":    registerData.Nickname,
+			"accessToken": accessTokenString,
+		},
 	})
 }
 

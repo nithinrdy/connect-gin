@@ -42,6 +42,7 @@ func JwtAuth() gin.HandlerFunc {
 		}
 
 		c.Set("username", username.(string))
+		c.Set("tokenFromClient", tokenString)
 		c.Next()
 	}
 }
