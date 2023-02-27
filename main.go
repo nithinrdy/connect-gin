@@ -21,6 +21,7 @@ func main() {
 	}
 	r := gin.Default()
 
+	routes.ExpressReverseProxy(r.Group("/express-proxy-api"))
 	routes.AuthRoutes(r.Group("/api/auth"))
 	routes.RefreshRoute(r.Group("/api/refresh"))
 
