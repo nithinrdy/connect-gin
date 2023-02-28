@@ -12,6 +12,16 @@ import (
 	"github.com/nithinrdy/connect-gin/config"
 )
 
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+
+		c.Next()
+	}
+}
+
 func main() {
 	db := config.DbConn()
 	defer db.Close()
@@ -20,6 +30,8 @@ func main() {
 		port = "4000"
 	}
 	r := gin.Default()
+
+	r.Use(CORSMiddleware())
 
 	routes.AuthRoutes(r.Group("/api/auth"))
 	routes.RefreshRoute(r.Group("/api/refresh"))
