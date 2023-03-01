@@ -16,9 +16,11 @@ I really wanted to build something cool with Go (I was really intrigued by the l
 
     This isn't the case with Gin, which completely breaks the frontend routing unless the user begins from the base route. Something like `gin-contrib/static` didn't help either (assuming it should have; or maybe I used it incorrectly). The only way to get this to work at this point was to manually serve the the individual HTML files for every route (which is just as tedious as it sounds).
 
-And so, there ended my 'Connect' journey with Gin (note that this project is still "fully-functional" though -- just set up a separate signalling server and link the react-app with this server for the basic routes (auth, etc.), and to the signalling server for websocket communication.
+## The app is still fully-functional... ish
 
-Finally, find a way to serve react's build files without having the client side routing completely break down (maybe use 'express'? *wink wink* or just run it in development mode forever because who cares about performance)).
+And so, there ended my 'Connect' journey with Gin. However, this project is still "fully-functional" though -- just set up a signalling server and link the react-app with this server for the basic routes (auth, etc.), and to the signalling server for websocket communication -- boom, you're 'CONNECT'-ed (pun intended).
+
+You may also want to find a way to fix the main issue which forced me to give up on Gin and this project -- serving react's build files without having the client side routing completely break down (just use `express`? *wink wink* or run it in development mode forever because who cares about performance).
 
 Still like Go, but will probably stick to Node for now.
 
